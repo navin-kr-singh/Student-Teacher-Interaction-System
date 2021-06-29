@@ -13,7 +13,7 @@ import sti.DatabaseOperations.Database;
 import sti.DatabaseOperations.DatabaseUtil;
 import sti.classes.Membership;
 
-public class AddMemberServlet extends HttpServlet 
+public class DeleteMemberServlet extends HttpServlet 
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
@@ -37,12 +37,12 @@ public class AddMemberServlet extends HttpServlet
         
         Membership mbp = new Membership(groupid, groupname, studentid, studentname);
         
-        if(db.CreateRecord(mbp)>0)
+        if(db.DeleteMember(mbp)>0)
         {
-            message = "member added successfully";
+            message = "member removed successfully";
         }
         else
-            message = "could not add member";
+            message = "could not remove member";
         
         DatabaseUtil.closeResultSet(rs);
         db.closedatabase();
@@ -50,7 +50,5 @@ public class AddMemberServlet extends HttpServlet
         response.setHeader("refresh", "2;URL=groupinfo");
         PrintWriter pw = response.getWriter();
         pw.print(message);
-        pw.close();
-        
     }
 }
